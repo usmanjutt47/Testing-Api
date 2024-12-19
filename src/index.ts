@@ -1,16 +1,22 @@
-import { serve } from '@hono/node-server'
-import { Hono } from 'hono'
+import { serve } from "@hono/node-server";
+import { Hono } from "hono";
+import dotenv from "dotenv";
+import { logger } from "hono/logger";
+import { connectDB } from "./config/connection.js";
+import userRouter from "./routers/userRouter.js";
 
-const app = new Hono()
+dotenv.config();
 
-app.get('/', (c) => {
-  return c.text('Hello Hono!')
-})
+const app = new Hono();
+const port = process.env.PORT || 3000;
 
-const port = 3000
-console.log(`Server is running on http://localhost:${port}`)
+connectDB();
 
-serve({
-  fetch: app.fetch,
-  port
-})
+app.use(logger());
+
+app.get("/", (c) => c.text("Hello Hono!"));
+
+app.route("/user", userRouter);
+
+console.log(`Server is running on http://localhost:${port}`);
+serve(app);
