@@ -3,7 +3,7 @@ import { Hono } from "hono";
 import dotenv from "dotenv";
 import { logger } from "hono/logger";
 import { connectDB } from "./config/connection.js";
-import userRouter from "./routers/userRouter.js";
+import userRouter from "./routers/user.js";
 
 dotenv.config();
 

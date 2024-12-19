@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import User from "../models/userModel.js";
+import User from "../models/user.js";
 import bcrypt from "bcrypt";
 
 const userRouter = new Hono();
